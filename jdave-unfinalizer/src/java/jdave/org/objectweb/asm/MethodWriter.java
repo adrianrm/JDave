@@ -1175,26 +1175,33 @@ class MethodWriter implements MethodVisitor {
         final Label end,
         final int index)
     {
-        if (signature != null) {
-            if (localVarType == null) {
-                localVarType = new ByteVector();
-            }
-            ++localVarTypeCount;
-            localVarType.putShort(start.position)
-                    .putShort(end.position - start.position)
-                    .putShort(cw.newUTF8(name))
-                    .putShort(cw.newUTF8(signature))
-                    .putShort(index);
-        }
-        if (localVar == null) {
-            localVar = new ByteVector();
-        }
-        ++localVarCount;
-        localVar.putShort(start.position)
+        // See http://forge.ow2.org/tracker/?group_id=23&atid=100023&func=detail&aid=310932
+
+        if (((start.status & labels.RESOLVED) != 0)
+                && ((end.status & labels.RESOLVED) != 0)) {
+
+            if (signature != null) {
+                if (localVarType == null) {
+                    localVarType = new ByteVector();
+                }
+                ++localVarTypeCount;
+                localVarType.putShort(start.position)
                 .putShort(end.position - start.position)
                 .putShort(cw.newUTF8(name))
-                .putShort(cw.newUTF8(desc))
+                .putShort(cw.newUTF8(signature))
                 .putShort(index);
+            }
+            if (localVar == null) {
+                localVar = new ByteVector();
+            }
+            ++localVarCount;
+            localVar.putShort(start.position)
+            .putShort(end.position - start.position)
+            .putShort(cw.newUTF8(name))
+            .putShort(cw.newUTF8(desc))
+            .putShort(index);
+        } //???
+
         if (compute != NOTHING) {
             // updates max locals
             char c = desc.charAt(0);
