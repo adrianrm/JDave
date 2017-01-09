@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+      <groupId>org.jdave</groupId>
+      <artifactId>jdave-parent</artifactId>
+      <version>1.4</version>    
+    </parent>
+
+    <groupId>com.sun</groupId>
+    <artifactId>tools</artifactId>
+    <version>1.6.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <jdk-lib-path>lib/java1.6</jdk-lib-path>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                  <execution>
+                    <id>attach-jar</id>
+                    <goals>
+                      <goal>attach-artifact</goal>
+                    </goals>
+                    <configuration>
+                        <artifacts>
+                            <artifact>
+                                <file>${jdk-lib-path}/tools.jar</file>
+                                <type>jar</type>
+                            </artifact>
+                        </artifacts>
+                    </configuration>
+                  </execution>
+                </executions>
+                </plugin>
+        </plugins>
+    </build>
+</project>
