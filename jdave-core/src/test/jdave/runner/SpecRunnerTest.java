@@ -138,6 +138,20 @@ public class SpecRunnerTest {
     }
 
     @Test
+    public void testShouldCallSuperClassOnceBeforeExactlyOnce() throws Exception {
+        BaseSpec.onceBeforeCalled = 0;
+        runner.run(BooleanSpec.class, new SpecVisitorAdapter(new ResultsAdapter()));
+        assertEquals(1, BaseSpec.onceBeforeCalled);
+    }
+
+    @Test
+    public void testShouldCallSuperClassOnceAfterExactlyOnce() throws Exception {
+        BaseSpec.onceAfterCalled = 0;
+        runner.run(BooleanSpec.class, new SpecVisitorAdapter(new ResultsAdapter()));
+        assertEquals(1, BaseSpec.onceAfterCalled);
+    }
+
+    @Test
     public void testShouldCallOnceAfterEvenIfContextDestroyCrashes() {
         SpecWithCrashingContextDestroy.onceAfterCalled = 0;
         runner.run(SpecWithCrashingContextDestroy.class, new SpecVisitorAdapter(
@@ -174,6 +188,16 @@ public class SpecRunnerTest {
 
     public static class BaseSpec extends Specification<Boolean> {
         public static List<String> actualCalls = new ArrayList<String>();
+        public static int onceBeforeCalled;
+        public static int onceAfterCalled;
+
+        public static void onceBefore() {
+          onceBeforeCalled++;
+        }
+
+        public static void onceAfter() {
+          onceAfterCalled++;
+        }
 
         public class CommonContext {
             public void anyBehavior() {
@@ -232,6 +256,11 @@ public class SpecRunnerTest {
 
             public void methodWhichTakesParameters(Object obj) {
                 actualCalls.add("methodWhichTakesParameters");
+            }
+
+            @Ignore(value = "this should not be called")
+            public void ignoredMethod() {
+                actualCalls.add("ignoredMethod");
             }
 
             public void destroy() {
