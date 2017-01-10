@@ -16,6 +16,14 @@
     <properties>
         <jdk-lib-path>lib/java1.6</jdk-lib-path>
     </properties>
+    <profiles>
+        <profile>
+            <id>builder</id>
+            <properties>
+                <jdk-lib-path>/usr/lib/jvm/java-6-sun/lib</jdk-lib-path>
+            </properties>
+        </profile>
+    </profiles>
     <build>
         <plugins>
             <plugin>

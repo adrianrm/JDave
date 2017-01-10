@@ -3,9 +3,10 @@
   <groupId>org.jdave</groupId>
   <artifactId>jdave-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.4</version>
   <name>jdave-parent</name>
   <url>http://maven.apache.org</url>
+  <!-- 
   <distributionManagement>
     <repository>
       <id>panda</id>
@@ -17,12 +18,25 @@
       <url>scp://maven.laughingpanda.org:/var/www/maven.laughingpanda.org/maven2/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
-  
+  -->
+  <distributionManagement>
+        <repository>
+            <id>artifactory</id>
+            <name>comundus Artifactory</name>
+            <url>http://mavenproxy:8081/artifactory/comundus-public</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory-snapshots</id>
+            <name>comundus Artifactory-snapshots</name>
+            <url>http://mavenproxy:8081/artifactory/comundus-private</url>
+        </snapshotRepository>
+  </distributionManagement>
+
   <scm>
-    <connection>scm:git:git://github.com/jdave/JDave.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/jdave/JDave.git</developerConnection>
+    <connection>scm:git:git://github.com/adrianrm/JDave.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/adrianrm/JDave.git</developerConnection>
   </scm>
-  
+  <!-- 
   <modules>
     <module>jdave-core</module>
     <module>jdave-junit4</module>
@@ -32,7 +46,11 @@
     <module>jdave-examples</module>
     <module>jdave-report-plugin</module>
   </modules>
-  
+   -->
+  <modules>
+    <module>jdave-unfinalizer</module>
+    <module>java-tools-jar</module>
+  </modules>
   <developers>
     <developer>
       <name>Pekka Enberg</name>
@@ -165,8 +183,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.3.2</version>
           <configuration>
-            <source>1.5</source>
-            <target>1.5</target>
+            <source>1.6</source>
+            <target>1.6</target>
           </configuration>
         </plugin>
         <plugin>
